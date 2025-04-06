@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pulseSpeed: 2
-  pulseScale: 20
+  pulseScale: 2
 --- !u!33 &5477475749955519422
 MeshFilter:
   m_ObjectHideFlags: 0

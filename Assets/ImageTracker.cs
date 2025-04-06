@@ -37,25 +37,35 @@ public class ImageTracker : MonoBehaviour
     {
         foreach (var trackedImage in eventArgs.added)
         {
-            // Simulate fetched DTCs (in a real app, fetch them from API or DB)
-            List<string> detectedDTCs = new List<string> { "Motor", "Steering", "Exhaust" };
+            // Simulated DTCs (multiple Motor DTCs)
+            Dictionary<string, List<string>> groupedDTCs = new Dictionary<string, List<string>>()
+        {
+            { "Motor", new List<string> { "Motor Overheat", "Motor Low Oil", "Motor Vibration" } },
+            { "Steering", new List<string> { "Steering Sensor Fault" } },
+            { "Exhaust", new List<string> { "Exhaust Leak" } }
+        };
 
-            foreach (var dtc in detectedDTCs)
+            foreach (var kvp in groupedDTCs)
             {
-                if (dtcOffsets.TryGetValue(dtc, out Vector3 offset))
+                string dtcCategory = kvp.Key;
+                List<string> dtcList = kvp.Value;
+
+                if (dtcOffsets.TryGetValue(dtcCategory, out Vector3 offset))
                 {
-                    // Convert offset from local space to world space relative to the image
                     Vector3 worldPos = trackedImage.transform.TransformPoint(offset);
 
                     GameObject dtcSphere = Instantiate(spherePrefab, worldPos, Quaternion.identity);
-                    dtcSphere.name = dtc;
-
-                    // Optionally parent it to tracked image so it moves with it
+                    dtcSphere.name = dtcCategory;
                     dtcSphere.transform.SetParent(trackedImage.transform);
+                    dtcSphere.tag = "DTCMarker";
+
+                    DTCContainer container = dtcSphere.AddComponent<DTCContainer>();
+                    container.dtcs.AddRange(dtcList);
                 }
             }
         }
-
-        // Optional: Update logic for moving objects if needed
     }
+
+
+    // Optional: Update logic for moving objects if needed
 }

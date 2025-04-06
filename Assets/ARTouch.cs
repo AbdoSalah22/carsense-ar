@@ -8,7 +8,18 @@ public class ARTouch : MonoBehaviour
     private Color defaultColor = Color.white;
     private Color touchedColor = Color.red;
 
+    private GameObject selectedMarker;
+    private DTCContainer selectedContainer;
+
     public TMP_Text infoBox;
+
+    public void OnNextDTCButtonPressed()
+    {
+        if (selectedContainer != null)
+        {
+            infoBox.text = selectedContainer.GetNextDTC();
+        }
+    }
 
     void Update()
     {
@@ -25,25 +36,28 @@ public class ARTouch : MonoBehaviour
 
                 if (hit.transform.CompareTag("DTCMarker"))
                 {
-                    // Reset all DTC markers to defaultColor
+                    // Reset colors
                     GameObject[] allMarkers = GameObject.FindGameObjectsWithTag("DTCMarker");
-
                     foreach (GameObject marker in allMarkers)
                     {
                         Renderer rend = marker.GetComponent<Renderer>();
                         if (rend != null)
-                        {
                             rend.material.color = defaultColor;
-                        }
                     }
 
-                    // Now highlight the selected one
+                    // Highlight selected
                     Renderer hitRenderer = hit.transform.GetComponent<Renderer>();
                     if (hitRenderer != null)
-                    {
                         hitRenderer.material.color = touchedColor;
-                        Debug.Log("Selected and highlighted: " + hit.transform.name);
-                        infoBox.text = hit.transform.name;
+
+                    // Set current selected
+                    selectedMarker = hit.transform.gameObject;
+                    selectedContainer = selectedMarker.GetComponent<DTCContainer>();
+
+                    if (selectedContainer != null)
+                    {
+                        selectedContainer.ResetCycle();
+                        infoBox.text = selectedContainer.GetCurrentDTC();
                     }
                 }
             }
