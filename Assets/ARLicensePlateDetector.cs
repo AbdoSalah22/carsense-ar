@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using Unity.Mathematics;
+using TMPro;
 
 public class ARLicensePlateDetector : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class ARLicensePlateDetector : MonoBehaviour
 
     [Header("Detection Settings")]
     public ModelAsset modelAsset;
-    [Range(0, 1)] public float confidenceThreshold = 0.5f;
-    public float sphereSpawnDistance = 0.8f;
+    [Range(0, 1)] public float confidenceThreshold = 0.3f;
+    public float sphereSpawnDistance = 0.5f;
 
     private IWorker m_Worker;
     private Model m_RuntimeModel;
@@ -27,6 +28,8 @@ public class ARLicensePlateDetector : MonoBehaviour
     private List<Detection> m_CurrentDetections = new List<Detection>();
 
     private bool detectionPaused = false;
+
+    public TMP_Text infoBox;
 
     public class Detection
     {
@@ -252,6 +255,7 @@ public class ARLicensePlateDetector : MonoBehaviour
             //m_CurrentSphere = Instantiate(spherePrefab, spawnPosition, Quaternion.identity);
             SpawnDTCSpheres(spawnPosition);
             detectionPaused = true;
+            infoBox.text = "DTCs Scanned !";
             Debug.Log("LETS GO!! YOLO PAUSED.");
             m_Worker?.Dispose();
         }
