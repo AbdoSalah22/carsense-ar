@@ -9,6 +9,8 @@ public class ImageTracker : MonoBehaviour
 {
     private ARTrackedImageManager trackedImages;
 
+    public ARLicensePlateDetector licensePlateDetector;
+
     public GameObject spherePrefab;
 
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
