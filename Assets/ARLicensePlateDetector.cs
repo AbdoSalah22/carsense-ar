@@ -13,16 +13,12 @@ public class ARLicensePlateDetector : MonoBehaviour
 {
     [Header("AR Components")]
     public ARCameraManager arCameraManager;
-    //[SerializeField] private Camera arCamera;
-    //public ARRaycastManager arRaycastManager;
-    //public XROrigin arSessionOrigin;
-    public GameObject spherePrefab; // Assign your sphere prefab in inspector
-
+    public GameObject spherePrefab;
 
     [Header("Detection Settings")]
     public ModelAsset modelAsset;
     [Range(0, 1)] public float confidenceThreshold = 0.5f;
-    public float sphereSpawnDistance = 0.8f; // Distance in front of license plate
+    public float sphereSpawnDistance = 0.8f;
 
     private IWorker m_Worker;
     private Model m_RuntimeModel;
@@ -32,26 +28,12 @@ public class ARLicensePlateDetector : MonoBehaviour
 
     private bool detectionPaused = false;
 
-
-    //public bool IsTrackingLicensePlate => m_CurrentSphere != null;
-    //public GameObject CurrentTrackedObject => m_CurrentSphere;
-    //public void PauseDetection() => detectionPaused = true;
-    //public void ResumeDetection() => detectionPaused = false;
-
-    //// Add these variables at the top of your class
-    //[Header("Debug")]
-    //public RawImage cameraFeedDisplay;
-    //public bool showDetectionRects = true;
-    //public Color detectionRectColor = Color.green;
-    //public float detectionRectDuration = 0.1f;
-
     public class Detection
     {
         public float Confidence { get; set; }
         public Rect Rectangle { get; set; }
     }
 
-    // Add these DTC-related variables at the top
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
     {
         { "Motor", new Vector3(0.0f, 0.2f, 0.4f) },
@@ -94,7 +76,6 @@ public class ARLicensePlateDetector : MonoBehaviour
         }
     }
 
-    // Add this new method to spawn DTC spheres
     private void SpawnDTCSpheres(Vector3 originPosition)
     {
         foreach (var kvp in groupedDTCs)
@@ -109,7 +90,6 @@ public class ARLicensePlateDetector : MonoBehaviour
                 dtcSphere.name = dtcZone;
                 dtcSphere.tag = "DTCMarker";
 
-                // Add component and data
                 DTCContainer container = dtcSphere.AddComponent<DTCContainer>();
                 foreach (var dtc in dtcList)
                     container.dtcs.Add($"{dtc.code} - {dtc.description}");
@@ -139,16 +119,10 @@ public class ARLicensePlateDetector : MonoBehaviour
             m_CameraTexture = new Texture2D(image.width, image.height, TextureFormat.RGBA32, false);
         }
 
-        //if (cameraFeedDisplay != null)
-        //{
-        //    cameraFeedDisplay.texture = m_CameraTexture;
-        //}
-
         image.Convert(conversionParams, m_CameraTexture.GetRawTextureData<byte>());
         m_CameraTexture.Apply();
         image.Dispose();
 
-        // Process the image
         ProcessCameraImage(m_CameraTexture);
     }
 
@@ -166,7 +140,7 @@ public class ARLicensePlateDetector : MonoBehaviour
         RenderTexture.active = null;
         RenderTexture.ReleaseTemporary(rt);
 
-        // Now correctly normalize the pixels from the resized texture
+        // Normalize the pixels from the resized texture
         Color[] pixels = resizedTexture.GetPixels();
         float[] normalizedPixels = new float[pixels.Length * 3];
 
@@ -181,25 +155,20 @@ public class ARLicensePlateDetector : MonoBehaviour
         // Create the input tensor with the normalized pixels
         using TensorFloat inputTensor = new TensorFloat(new TensorShape(1, 3, 640, 640), normalizedPixels);
 
-        // Execute the model
         m_Worker.Execute(inputTensor);
 
-        // Get output
         using TensorFloat outputTensor = m_Worker.PeekOutput() as TensorFloat;
         outputTensor.MakeReadable();
 
-        // Process detections
-        m_CurrentDetections = new List<Detection>(ProcessOutput(outputTensor));
+        // Clear existing detections instead of creating a new list
+        m_CurrentDetections.Clear();
+        // Add new detections to existing list
+        m_CurrentDetections.AddRange(ProcessOutput(outputTensor));
 
-        // Handle AR visualization
+        // Clean up the resized texture to prevent memory leak
+        Destroy(resizedTexture);
+
         UpdateARVisualization();
-
-        //// Display resized texture for debugging if needed
-        //if (cameraFeedDisplay != null)
-        //{
-        //    // Optional: To see exactly what the model sees
-        //    cameraFeedDisplay.texture = resizedTexture;
-        //}
     }
 
 
@@ -207,7 +176,7 @@ public class ARLicensePlateDetector : MonoBehaviour
     {
         float[] outputData = output.ToReadOnlyArray();
         int numBoxes = 25200;
-        int dimensions = 6; // [x, y, w, h, conf, class] for your model
+        int dimensions = 6; // [x, y, w, h, conf, class] for the model
 
         var detections = new List<Detection>();
 
@@ -221,7 +190,7 @@ public class ARLicensePlateDetector : MonoBehaviour
             // Add debug output to check confidence values
             if (confidence > 0.1f)
             {
-                Debug.Log($"Found confidence: {confidence}");
+                //Debug.Log($"Found confidence: {confidence}");
             }
 
             if (confidence < confidenceThreshold) continue;
@@ -252,6 +221,7 @@ public class ARLicensePlateDetector : MonoBehaviour
 
     private void UpdateARVisualization()
     {
+        //Debug.Log("COUNT: " + m_CurrentDetections.Count);
         if (m_CurrentDetections.Count == 0)
         {
             if (m_CurrentSphere != null)
@@ -293,9 +263,7 @@ public class ARLicensePlateDetector : MonoBehaviour
 
     public Vector3 CalculateARPosition(Vector2 screenPosition)
     {
-        // Fallback: spawn in front of the camera
         Debug.Log("Raycast not working. Using fallback position.");
-        //return arCamera.transform.position + arCamera.transform.forward * sphereSpawnDistance;
         return arCameraManager.transform.position + arCameraManager.transform.forward * sphereSpawnDistance;
     }
 
