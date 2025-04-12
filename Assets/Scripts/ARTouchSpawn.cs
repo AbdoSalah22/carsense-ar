@@ -7,12 +7,24 @@ public class ARTouchSpawn : MonoBehaviour
 {
     [Header("AR Components")]
     public ARCameraManager arCameraManager;
-    public GameObject spherePrefab;
-    public GameObject zoneLabelPrefab;
     public GameObject guideFramePanel;
 
+    [Header("Default Prefab")]
+    public GameObject defaultPrefab;
+    public GameObject zoneLabelPrefab;
+
+    [Header("Custom Part Prefabs")]
+    public GameObject MotorPrefab;
+    public GameObject SteeringPrefab;
+    public GameObject ExhaustPrefab;
+    public GameObject BrakesPrefab;
+    public GameObject TransmissionPrefab;
+    public GameObject SuspensionPrefab;
+    public GameObject CoolingPrefab;
+    public GameObject BatteryPrefab;
+
     [Header("Spawn Settings")]
-    public float sphereSpawnDistance = 0.5f;
+    public float spawnDistance = 0.5f;
     public TMP_Text infoBox;
 
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
@@ -39,12 +51,11 @@ public class ARTouchSpawn : MonoBehaviour
     void Update()
     {
         if (hasSpawned) return;
-
         //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 originPosition = arCameraManager.transform.position + arCameraManager.transform.forward * sphereSpawnDistance;
-            SpawnDTCSpheres(originPosition);
+            Vector3 originPosition = arCameraManager.transform.position + arCameraManager.transform.forward * spawnDistance;
+            SpawnDTCObjects(originPosition);
             infoBox.text = "DTC markers placed!";
             hasSpawned = true;
         }
@@ -63,7 +74,33 @@ public class ARTouchSpawn : MonoBehaviour
         }
     }
 
-    private void SpawnDTCSpheres(Vector3 originPosition)
+    private GameObject GetPrefabForZone(string zone)
+    {
+        // Match the zone name exactly to the prefab variable names
+        switch (zone)
+        {
+            case "Motor":
+                return MotorPrefab != null ? MotorPrefab : defaultPrefab;
+            case "Steering":
+                return SteeringPrefab != null ? SteeringPrefab : defaultPrefab;
+            case "Exhaust":
+                return ExhaustPrefab != null ? ExhaustPrefab : defaultPrefab;
+            case "Brakes":
+                return BrakesPrefab != null ? BrakesPrefab : defaultPrefab;
+            case "Transmission":
+                return TransmissionPrefab != null ? TransmissionPrefab : defaultPrefab;
+            case "Suspension":
+                return SuspensionPrefab != null ? SuspensionPrefab : defaultPrefab;
+            case "Cooling":
+                return CoolingPrefab != null ? CoolingPrefab : defaultPrefab;
+            case "Battery":
+                return BatteryPrefab != null ? BatteryPrefab : defaultPrefab;
+            default:
+                return defaultPrefab;
+        }
+    }
+
+    private void SpawnDTCObjects(Vector3 originPosition)
     {
         foreach (var kvp in groupedDTCs)
         {
@@ -73,19 +110,29 @@ public class ARTouchSpawn : MonoBehaviour
             if (dtcOffsets.TryGetValue(zone, out Vector3 offset))
             {
                 Vector3 worldPos = originPosition + offset;
-                GameObject dtcSphere = Instantiate(spherePrefab, worldPos, Quaternion.identity);
-                dtcSphere.name = zone;
-                dtcSphere.tag = "DTCMarker";
 
-                DTCContainer container = dtcSphere.AddComponent<DTCContainer>();
+                // Get the appropriate prefab for this zone
+                GameObject prefabToUse = GetPrefabForZone(zone);
+
+                // Instantiate the zone-specific prefab
+                GameObject dtcObject = Instantiate(prefabToUse, worldPos + prefabToUse.transform.position, prefabToUse.transform.rotation);
+                dtcObject.name = zone;
+                dtcObject.tag = "DTCMarker";
+
+                // Add the DTC container component
+                DTCContainer container = dtcObject.AddComponent<DTCContainer>();
                 foreach (var dtc in dtcList)
+                {
                     container.dtcs.Add($"{dtc.code} - {dtc.description}");
+                }
 
-                GameObject label = Instantiate(zoneLabelPrefab, worldPos + new Vector3(0, 0.05f, 0), Quaternion.identity);
+                // Create the label
+                GameObject label = Instantiate(zoneLabelPrefab, worldPos + new Vector3(0, 0.1f, 0), Quaternion.identity);
                 label.GetComponent<TextMeshPro>().text = zone;
-
-                guideFramePanel.SetActive(false);
             }
         }
+
+        // Hide the guide panel
+        guideFramePanel.SetActive(false);
     }
 }

@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: a21e472cdb27a4b469689217a6f51679
+guid: d5d865597cfcc41449fa00e3dd89c40a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BrakeDisk_Mat
-    second: {fileID: 2100000, guid: 44e02e0c2630380408be4c30d6932720, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BrakeDisk_Mat1
-    second: {fileID: 2100000, guid: 295acaf9feb12d94db687369a15f75dd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BrakeDisk_Mat2
-    second: {fileID: 2100000, guid: f7e5f03d27569e94885dff88419a2801, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -50,7 +35,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 0.1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -105,7 +90,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.5
+    globalScale: 0.001
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

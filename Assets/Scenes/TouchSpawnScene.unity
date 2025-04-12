@@ -927,10 +927,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arCameraManager: {fileID: 874708522}
-  spherePrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
-  zoneLabelPrefab: {fileID: 250787447564667353, guid: bf98f0e81f2ebac4d94f782ff6411e39, type: 3}
   guideFramePanel: {fileID: 967876941}
-  sphereSpawnDistance: 0.5
+  defaultPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
+  zoneLabelPrefab: {fileID: 250787447564667353, guid: bf98f0e81f2ebac4d94f782ff6411e39, type: 3}
+  MotorPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  SteeringPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  ExhaustPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  BrakesPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  TransmissionPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  SuspensionPrefab: {fileID: 3700561922331102818, guid: 14c43aa1de4786641818c9009bd09b96, type: 3}
+  CoolingPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  BatteryPrefab: {fileID: 796527897679609166, guid: 287b41ded7943854cb7483ba6a915da1, type: 3}
+  spawnDistance: 0.5
   infoBox: {fileID: 446104802}
 --- !u!1 &1108873704
 GameObject:
