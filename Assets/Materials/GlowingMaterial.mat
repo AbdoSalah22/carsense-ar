@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LicensePlate
+  m_Name: GlowingMaterial
   m_Shader: {fileID: 4800000, guid: 9afe37d6d4b627d448297bc9a3691b9a, type: 3}
   m_Parent: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
   m_ModifiedSerializedProperties: 0

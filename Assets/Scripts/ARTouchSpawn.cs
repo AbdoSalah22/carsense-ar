@@ -9,6 +9,7 @@ public class ARTouchSpawn : MonoBehaviour
     public ARCameraManager arCameraManager;
     public GameObject spherePrefab;
     public GameObject zoneLabelPrefab;
+    public GameObject guideFramePanel;
 
     [Header("Spawn Settings")]
     public float sphereSpawnDistance = 0.5f;
@@ -79,8 +80,11 @@ public class ARTouchSpawn : MonoBehaviour
                 DTCContainer container = dtcSphere.AddComponent<DTCContainer>();
                 foreach (var dtc in dtcList)
                     container.dtcs.Add($"{dtc.code} - {dtc.description}");
+
                 GameObject label = Instantiate(zoneLabelPrefab, worldPos + new Vector3(0, 0.05f, 0), Quaternion.identity);
                 label.GetComponent<TextMeshPro>().text = zone;
+
+                guideFramePanel.SetActive(false);
             }
         }
     }
