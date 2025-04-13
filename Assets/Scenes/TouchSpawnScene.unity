@@ -930,13 +930,13 @@ MonoBehaviour:
   guideFramePanel: {fileID: 967876941}
   defaultPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
   zoneLabelPrefab: {fileID: 250787447564667353, guid: bf98f0e81f2ebac4d94f782ff6411e39, type: 3}
-  MotorPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
-  SteeringPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
-  ExhaustPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  MotorPrefab: {fileID: 7820645381204436368, guid: 3121dbe8b7690aa4983e59ff85d15bef, type: 3}
+  SteeringPrefab: {fileID: 8466676476451192899, guid: 52bff75a04ac1524e8f4f14cbced5c9e, type: 3}
+  ExhaustPrefab: {fileID: 8841117674693389397, guid: 7e1663fd89051434f87885659f64f07f, type: 3}
   BrakesPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
-  TransmissionPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  TransmissionPrefab: {fileID: 3571147223782384294, guid: e39c56183f81b2f48b7919b9aabd4d45, type: 3}
   SuspensionPrefab: {fileID: 3700561922331102818, guid: 14c43aa1de4786641818c9009bd09b96, type: 3}
-  CoolingPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
+  CoolingPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
   BatteryPrefab: {fileID: 796527897679609166, guid: 287b41ded7943854cb7483ba6a915da1, type: 3}
   spawnDistance: 0.5
   infoBox: {fileID: 446104802}
