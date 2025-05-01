@@ -21,6 +21,10 @@ public class ARSceneController : MonoBehaviour
     public TMP_Text infoBox;
     public GameObject guideFramePanel;
 
+    [Header("Plane Materials")]
+    public Material horizontalPlaneMaterial;
+    public Material verticalPlaneMaterial;
+
     private GameObject placementAnchor;
     private bool hasSpawnedParts = false;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -43,6 +47,63 @@ public class ARSceneController : MonoBehaviour
     {
         LoadDTCData();
         infoBox.text = "Tap on the license plate to start.";
+
+        planeManager.planesChanged += OnPlanesChanged;
+    }
+
+    void OnDestroy()
+    {
+        if (planeManager != null)
+        {
+            planeManager.planesChanged -= OnPlanesChanged;
+        }
+    }
+
+    private void OnPlanesChanged(ARPlanesChangedEventArgs args)
+    {
+        foreach (var plane in args.added)
+        {
+            float horizontalness = Mathf.Abs(Vector3.Dot(plane.normal, Vector3.up));
+            bool isHorizontal = horizontalness > 0.7f;
+
+            // Immediately disable horizontal planes
+            if (isHorizontal)
+            {
+                plane.gameObject.SetActive(false);
+            }
+            else
+            {
+                UpdatePlaneMaterial(plane);
+            }
+        }
+
+        foreach (var plane in args.updated)
+        {
+            // Only process vertical planes
+            float horizontalness = Mathf.Abs(Vector3.Dot(plane.normal, Vector3.up));
+            if (horizontalness <= 0.7f)
+            {
+                UpdatePlaneMaterial(plane);
+            }
+        }
+    }
+
+    private void UpdatePlaneMaterial(ARPlane plane)
+    {
+        // Calculate how horizontal the plane is (1 = completely horizontal, 0 = vertical)
+        float horizontalness = Mathf.Abs(Vector3.Dot(plane.normal, Vector3.up));
+
+        // Use a threshold to determine if it's horizontal or vertical
+        bool isHorizontal = horizontalness > 0.7f;
+
+        MeshRenderer renderer = plane.GetComponent<MeshRenderer>();
+        if (renderer != null && horizontalPlaneMaterial != null && verticalPlaneMaterial != null)
+        {
+            // Apply the appropriate material
+            renderer.sharedMaterial = isHorizontal ?
+                horizontalPlaneMaterial :
+                verticalPlaneMaterial;
+        }
     }
 
     void Update()

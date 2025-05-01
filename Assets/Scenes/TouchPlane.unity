@@ -1028,6 +1028,8 @@ MonoBehaviour:
   BatteryPrefab: {fileID: 796527897679609166, guid: 287b41ded7943854cb7483ba6a915da1, type: 3}
   infoBox: {fileID: 446104802}
   guideFramePanel: {fileID: 967876941}
+  horizontalPlaneMaterial: {fileID: 2100000, guid: 0297da3dc6e45b842ba37a4738b51a69, type: 2}
+  verticalPlaneMaterial: {fileID: 2100000, guid: 41968241e678a5b44aea355be3898fb1, type: 2}
 --- !u!1 &1108873704
 GameObject:
   m_ObjectHideFlags: 0
