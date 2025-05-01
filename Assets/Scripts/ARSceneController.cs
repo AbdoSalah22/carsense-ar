@@ -31,14 +31,14 @@ public class ARSceneController : MonoBehaviour
 
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
     {
-        { "Motor", new Vector3(0.0f, 0.2f, 0.4f) },
-        { "Steering", new Vector3(0.3f, 0.3f, 0.8f) },
-        { "Exhaust", new Vector3(-0.4f, 0.0f, 1.8f) },
-        { "Brakes", new Vector3(0.2f, -0.1f, 0.6f) },
-        { "Transmission", new Vector3(-0.3f, 0.15f, 0.5f) },
-        { "Suspension", new Vector3(0.1f, -0.2f, 1.5f) },
+        { "Motor", new Vector3(0.1f, 0.2f, 0.4f) },
+        { "Steering", new Vector3(0.3f, 0.4f, 1.1f) },
+        { "Exhaust", new Vector3(-0.4f, 0.0f, 2.6f) },
+        { "Brakes", new Vector3(0.4f, -0.1f, 0.6f) },
+        { "Transmission", new Vector3(-0.1f, 0.15f, 0.5f) },
+        { "Suspension", new Vector3(0.25f, 0.05f, 0.6f) },
         { "Cooling", new Vector3(0.0f, 0.25f, 0.2f) },
-        { "Battery", new Vector3(-0.2f, 0.1f, 0.3f) }
+        { "Battery", new Vector3(-0.2f, 0.25f, 0.3f) }
     };
 
     private Dictionary<string, List<DTCData>> groupedDTCs = new Dictionary<string, List<DTCData>>();
