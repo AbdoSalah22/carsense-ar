@@ -38,7 +38,8 @@ public class ARSceneController : MonoBehaviour
         { "Transmission", new Vector3(-0.1f, 0.15f, 0.5f) },
         { "Suspension", new Vector3(0.25f, 0.05f, 0.6f) },
         { "Cooling", new Vector3(0.0f, 0.25f, 0.2f) },
-        { "Battery", new Vector3(-0.2f, 0.25f, 0.3f) }
+        { "Battery", new Vector3(-0.2f, 0.25f, 0.3f) },
+        { "Other", new Vector3(0.0f, 0.15f, -0.15f) }
     };
 
     private Dictionary<string, List<DTCData>> groupedDTCs = new Dictionary<string, List<DTCData>>();
@@ -171,6 +172,7 @@ public class ARSceneController : MonoBehaviour
             case "Suspension": return SuspensionPrefab ?? defaultPrefab;
             case "Cooling": return CoolingPrefab ?? defaultPrefab;
             case "Battery": return BatteryPrefab ?? defaultPrefab;
+            case "Other": return defaultPrefab;
             default: return defaultPrefab;
         }
     }

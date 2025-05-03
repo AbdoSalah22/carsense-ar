@@ -8,5 +8,8 @@
     { "code": "P0700", "description": "Transmission Control System Malfunction", "zone": "Transmission" },
     { "code": "C1111", "description": "Suspension Height Sensor Fault", "zone": "Suspension" },
     { "code": "P0117", "description": "Engine Coolant Temperature Sensor Low", "zone": "Cooling" },
-    { "code": "B1000", "description": "Battery Control Module Failure", "zone": "Battery" }
+    { "code": "B1000", "description": "Battery Control Module Failure", "zone": "Battery" },
+	{ "code": "X1234", "description": "Fake Part", "zone": "Fake" },
+	{ "code": "O1234", "description": "Other Troubles 1", "zone": "Other" },
+	{ "code": "O5678", "description": "Other Troubles 2", "zone": "Other" }
 ]
