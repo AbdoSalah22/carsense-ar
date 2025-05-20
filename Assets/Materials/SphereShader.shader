@@ -15,6 +15,8 @@ Shader "Custom/GlowingPulsingSphere" {
         Blend SrcAlpha OneMinusSrcAlpha
         
         Pass {
+            ZWrite Off
+            ZTest Always
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag

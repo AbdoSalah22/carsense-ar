@@ -48,13 +48,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4620282718447106903, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4040332602339045402, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -488171866763718207, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
       propertyPath: m_Name
       value: Brakes
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
       propertyPath: m_TagString
       value: DTCMarker
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552327617057372446, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564783574603935192, guid: a21e472cdb27a4b469689217a6f51679, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1071,6 +1071,7 @@ MonoBehaviour:
   SuspensionPrefab: {fileID: 3700561922331102818, guid: 14c43aa1de4786641818c9009bd09b96, type: 3}
   CoolingPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
   BatteryPrefab: {fileID: 796527897679609166, guid: 287b41ded7943854cb7483ba6a915da1, type: 3}
+  transparentCarPrefab: {fileID: 6271686376743443505, guid: bb5cb819d8c866343a1a5cc4b4bf056a, type: 3}
   infoBox: {fileID: 446104802}
   guideFramePanel: {fileID: 967876941}
   horizontalPlaneMaterial: {fileID: 2100000, guid: 0297da3dc6e45b842ba37a4738b51a69, type: 2}

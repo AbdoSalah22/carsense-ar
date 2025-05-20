@@ -17,6 +17,9 @@ public class ARSceneController : MonoBehaviour
     public GameObject zoneLabelPrefab;
     public GameObject MotorPrefab, SteeringPrefab, ExhaustPrefab, BrakesPrefab, TransmissionPrefab, SuspensionPrefab, CoolingPrefab, BatteryPrefab;
 
+    [Header("Car Model")]
+    public GameObject transparentCarPrefab;
+
     [Header("UI")]
     public TMP_Text infoBox;
     public GameObject guideFramePanel;
@@ -31,15 +34,15 @@ public class ARSceneController : MonoBehaviour
 
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
     {
-        { "Motor", new Vector3(0.1f, 0.2f, 0.4f) },
-        { "Steering", new Vector3(0.3f, 0.4f, 1.1f) },
-        { "Exhaust", new Vector3(-0.4f, 0.0f, 2.6f) },
-        { "Brakes", new Vector3(0.4f, -0.1f, 0.6f) },
-        { "Transmission", new Vector3(-0.1f, 0.15f, 0.5f) },
-        { "Suspension", new Vector3(0.25f, 0.05f, 0.6f) },
-        { "Cooling", new Vector3(0.0f, 0.25f, 0.2f) },
-        { "Battery", new Vector3(-0.2f, 0.25f, 0.3f) },
-        { "Other", new Vector3(0.0f, 0.15f, -0.15f) }
+        { "Motor", new Vector3(0.1f, 0.4f, 0.4f) },
+        { "Steering", new Vector3(0.3f, 0.6f, 1.1f) },
+        { "Exhaust", new Vector3(-0.4f, 0.2f, 2.6f) },
+        { "Brakes", new Vector3(0.4f, 0.15f, 0.6f) },
+        { "Transmission", new Vector3(-0.1f, 0.35f, 0.5f) },
+        { "Suspension", new Vector3(0.25f, 0.25f, 0.6f) },
+        { "Cooling", new Vector3(0.0f, 0.45f, 0.2f) },
+        { "Battery", new Vector3(-0.2f, 0.45f, 0.3f) },
+        { "Other", new Vector3(0.0f, 0.35f, -0.15f) }
     };
 
     private Dictionary<string, List<DTCData>> groupedDTCs = new Dictionary<string, List<DTCData>>();
@@ -67,8 +70,8 @@ public class ARSceneController : MonoBehaviour
             float horizontalness = Mathf.Abs(Vector3.Dot(plane.normal, Vector3.up));
             bool isHorizontal = horizontalness > 0.7f;
 
-            // Immediately disable horizontal planes
-            if (isHorizontal)
+            // Disable vertical planes, keep horizontal
+            if (!isHorizontal)
             {
                 plane.gameObject.SetActive(false);
             }
@@ -76,6 +79,7 @@ public class ARSceneController : MonoBehaviour
             {
                 UpdatePlaneMaterial(plane);
             }
+
         }
 
         foreach (var plane in args.updated)
@@ -130,6 +134,17 @@ public class ARSceneController : MonoBehaviour
                     placementAnchor = Instantiate(placementPrefab, hitPose.position, hitPose.rotation);
                 }
 
+                // Add this line to instantiate the car at the same location
+                if (transparentCarPrefab != null)
+                {
+                    Vector3 direction = hitPose.position - Camera.main.transform.position;
+                    direction.y = 0;
+                    direction.Normalize();
+                    Quaternion lookRotation = Quaternion.LookRotation(direction);
+                    GameObject car = Instantiate(transparentCarPrefab, hitPose.position, lookRotation);
+                    car.transform.localScale = Vector3.one; // or adjust as needed
+                }
+
                 // Spawn the DTC models
                 SpawnDTCObjects(hitPose.position);
 
@@ -179,8 +194,11 @@ public class ARSceneController : MonoBehaviour
 
     void SpawnDTCObjects(Vector3 basePos)
     {
-        float yRotation = placementAnchor.transform.eulerAngles.y;
-        Quaternion yOnlyRotation = Quaternion.Euler(0, yRotation - 90f, 0);
+        // Compute direction user was facing when tapping
+        Vector3 direction = (basePos - Camera.main.transform.position);
+        direction.y = 0; // ignore vertical tilt for stable horizontal orientation
+        direction.Normalize();
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
 
         foreach (var kvp in groupedDTCs)
         {
@@ -189,10 +207,10 @@ public class ARSceneController : MonoBehaviour
 
             if (dtcOffsets.TryGetValue(zone, out Vector3 offset))
             {
-                Vector3 rotatedOffset = yOnlyRotation * offset;
+                Vector3 rotatedOffset = lookRotation * offset;
                 Vector3 worldPos = basePos + rotatedOffset;
                 GameObject prefab = GetPrefabForZone(zone);
-                GameObject dtcObj = Instantiate(prefab, worldPos, yOnlyRotation * prefab.transform.rotation);
+                GameObject dtcObj = Instantiate(prefab, worldPos, lookRotation * prefab.transform.rotation);
                 dtcObj.name = zone;
                 dtcObj.tag = "DTCMarker";
 
