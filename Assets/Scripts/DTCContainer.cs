@@ -20,8 +20,22 @@ public class DTCContainer : MonoBehaviour
         return dtcs[currentIndex];
     }
 
+    public string GetPreviousDTC()
+    {
+        if (dtcs.Count == 0) return "";
+
+        currentIndex = (currentIndex - 1 + dtcs.Count) % dtcs.Count;
+        return dtcs[currentIndex];
+    }
+
     public void ResetCycle()
     {
         currentIndex = 0;
     }
+
+    public bool HasMultipleDTCs()
+    {
+        return dtcs != null && dtcs.Count > 1;
+    }
+
 }

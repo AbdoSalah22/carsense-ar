@@ -19,6 +19,7 @@ public class ARSceneController : MonoBehaviour
 
     [Header("Car Model")]
     public GameObject transparentCarPrefab;
+    private GameObject spawnedCar = null;
 
     [Header("UI")]
     public TMP_Text infoBox;
@@ -50,7 +51,7 @@ public class ARSceneController : MonoBehaviour
     void Start()
     {
         LoadDTCData();
-        infoBox.text = "Tap on the license plate to start.";
+        infoBox.text = "Tap on the highligted area to start";
 
         planeManager.planesChanged += OnPlanesChanged;
     }
@@ -141,8 +142,8 @@ public class ARSceneController : MonoBehaviour
                     direction.y = 0;
                     direction.Normalize();
                     Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    GameObject car = Instantiate(transparentCarPrefab, hitPose.position, lookRotation);
-                    car.transform.localScale = Vector3.one; // or adjust as needed
+                    spawnedCar = Instantiate(transparentCarPrefab, hitPose.position, lookRotation);
+                    spawnedCar.transform.localScale = Vector3.one;
                 }
 
                 // Spawn the DTC models
@@ -216,11 +217,65 @@ public class ARSceneController : MonoBehaviour
 
                 var container = dtcObj.AddComponent<DTCContainer>();
                 foreach (var dtc in dtcList)
-                    container.dtcs.Add($"{dtc.code} - {dtc.description}");
+                    container.dtcs.Add($"{dtc.code}\n{dtc.description}");
 
                 GameObject label = Instantiate(zoneLabelPrefab, worldPos + new Vector3(0, 0.1f, 0), Quaternion.identity);
                 label.GetComponent<TextMeshPro>().text = zone;
             }
         }
+    }
+
+    public void ResetScene()
+    {
+        // Destroy placement anchor and all spawned objects
+        if (placementAnchor != null)
+        {
+            Destroy(placementAnchor);
+            placementAnchor = null;
+        }
+
+        // Destroy all DTC markers and zone labels
+        GameObject[] dtcMarkers = GameObject.FindGameObjectsWithTag("DTCMarker");
+        foreach (GameObject marker in dtcMarkers)
+        {
+            Destroy(marker);
+        }
+
+        GameObject[] zoneLabels = GameObject.FindGameObjectsWithTag("ZoneLabel");
+        foreach (GameObject label in zoneLabels)
+        {
+            Destroy(label);
+        }
+
+        if (spawnedCar != null)
+        {
+            Destroy(spawnedCar);
+            spawnedCar = null;
+        }
+
+        planeManager.enabled = true;
+
+        foreach (var plane in planeManager.trackables)
+        {
+            float horizontalness = Mathf.Abs(Vector3.Dot(plane.normal, Vector3.up));
+            bool isHorizontal = horizontalness > 0.7f;
+
+            if (isHorizontal)
+            {
+                plane.gameObject.SetActive(true);
+
+                var collider = plane.GetComponent<Collider>();
+                if (collider != null)
+                    collider.enabled = true;
+            }
+            else
+            {
+                plane.gameObject.SetActive(false);
+            }
+        }
+
+        hasSpawnedParts = false;
+        infoBox.text = "Tap on the highlighted area to start again";
+        guideFramePanel.SetActive(true);
     }
 }

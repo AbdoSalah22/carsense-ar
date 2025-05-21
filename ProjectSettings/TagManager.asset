@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DTCMarker
+  - ZoneLabel
   layers:
   - Default
   - TransparentFX

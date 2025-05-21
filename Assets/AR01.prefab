@@ -1174,6 +1174,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mercedes Benz GLS 580
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1f468a21dd8fc0c4aab3aba5988ee9c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8410906440232176398, guid: 1f468a21dd8fc0c4aab3aba5988ee9c1, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1

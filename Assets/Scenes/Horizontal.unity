@@ -835,7 +835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &967876942
 RectTransform:
   m_ObjectHideFlags: 0
@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 8f07ea72ed18d004380007169360b77c, type: 2}
-  infoBox: {fileID: 446104802}
+  arInfoPanelPrefab: {fileID: 3666718028997285630, guid: 1c4af895b5cefcf43a75346974557f42, type: 3}
 --- !u!114 &1039503469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,7 +1291,7 @@ GameObject:
   - component: {fileID: 1373905954}
   - component: {fileID: 1373905953}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1361,9 +1361,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1039503468}
-        m_TargetAssemblyTypeName: ARTouch, Assembly-CSharp
-        m_MethodName: OnNextDTCButtonPressed
+      - m_Target: {fileID: 1039503474}
+        m_TargetAssemblyTypeName: ARSceneController, Assembly-CSharp
+        m_MethodName: ResetScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1501,7 +1501,7 @@ GameObject:
   - component: {fileID: 1990305030}
   - component: {fileID: 1990305029}
   m_Layer: 5
-  m_Name: Next
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next
+  m_text: Reset
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
