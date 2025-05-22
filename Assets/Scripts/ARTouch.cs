@@ -162,8 +162,8 @@ public class ARTouch : MonoBehaviour
         if (arInfoPanelPrefab != null)
         {
             // Position panel slightly above and behind the marker relative to camera
-            Vector3 panelOffset = markerTransform.up * 0.2f +
-                                -markerTransform.forward * 0.1f;
+            Vector3 cameraDirection = (markerTransform.position - arCamera.transform.position).normalized;
+            Vector3 panelOffset = cameraDirection * -0.3f + Vector3.up * 0.2f; // adjust -0.3f as needed
 
             currentInfoPanel = Instantiate(
                 arInfoPanelPrefab,
