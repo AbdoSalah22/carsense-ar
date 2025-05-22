@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ARTouch : MonoBehaviour
@@ -64,6 +65,13 @@ public class ARTouch : MonoBehaviour
             selectedMarker = null;
             selectedContainer = null;
         }
+
+        // Re-enable all marker colliders
+        foreach (GameObject marker in GameObject.FindGameObjectsWithTag("DTCMarker"))
+        {
+            Collider col = marker.GetComponent<Collider>();
+            if (col != null) col.enabled = true;
+        }
     }
 
 
@@ -96,10 +104,25 @@ public class ARTouch : MonoBehaviour
         }
     }
 
+    bool IsPointerOverUI()
+    {
+#if UNITY_ANDROID || UNITY_IOS
+        if (Input.touchCount > 0)
+            return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+        else
+            return false;
+#else
+    return EventSystem.current.IsPointerOverGameObject();
+#endif
+    }
+
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (IsPointerOverUI()) return;
+
             Ray ray = arCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             int layerMask = ~(1 << LayerMask.NameToLayer("UI"));
@@ -153,6 +176,16 @@ public class ARTouch : MonoBehaviour
 
     void ShowARInfoPanel(Transform markerTransform, string initialText)
     {
+        // Disable other markers' colliders
+        foreach (GameObject marker in GameObject.FindGameObjectsWithTag("DTCMarker"))
+        {
+            if (marker != selectedMarker)
+            {
+                Collider col = marker.GetComponent<Collider>();
+                if (col != null) col.enabled = false;
+            }
+        }
+
         // Destroy existing panel if any
         if (currentInfoPanel != null)
         {
@@ -162,8 +195,9 @@ public class ARTouch : MonoBehaviour
         if (arInfoPanelPrefab != null)
         {
             // Position panel slightly above and behind the marker relative to camera
-            Vector3 cameraDirection = (markerTransform.position - arCamera.transform.position).normalized;
-            Vector3 panelOffset = cameraDirection * -0.3f + Vector3.up * 0.2f; // adjust -0.3f as needed
+            Vector3 panelOffset = markerTransform.up * 0.2f + -markerTransform.forward * 0.1f;
+            //Vector3 cameraDirection = (markerTransform.position - arCamera.transform.position).normalized;
+            //Vector3 panelOffset = cameraDirection * -0.3f + Vector3.up * 0.2f; // adjust -0.3f as needed
 
             currentInfoPanel = Instantiate(
                 arInfoPanelPrefab,
