@@ -35,14 +35,14 @@ public class ARSceneController : MonoBehaviour
 
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
     {
-        { "Motor", new Vector3(0.1f, 0.4f, 0.4f) },
-        { "Steering", new Vector3(0.3f, 0.6f, 1.1f) },
-        { "Exhaust", new Vector3(-0.4f, 0.2f, 2.6f) },
-        { "Brakes", new Vector3(0.4f, 0.15f, 0.6f) },
-        { "Transmission", new Vector3(-0.1f, 0.35f, 0.5f) },
-        { "Suspension", new Vector3(0.25f, 0.25f, 0.6f) },
-        { "Cooling", new Vector3(0.0f, 0.45f, 0.2f) },
-        { "Battery", new Vector3(-0.2f, 0.45f, 0.3f) },
+        { "Motor", new Vector3(0.1f, 0.35f, 0.4f) },
+        { "Steering", new Vector3(0.25f, 0.6f, 1.2f) },
+        { "Exhaust", new Vector3(-0.25f, 0.2f, 2.0f) },
+        { "Brakes", new Vector3(0.4f, 0.175f, 0.575f) },
+        { "Transmission", new Vector3(-0.1f, 0.25f, 0.5f) },
+        { "Suspension", new Vector3(0.25f, 0.3f, 0.6f) },
+        { "Cooling", new Vector3(0.0f, 0.35f, 0.2f) },
+        { "Battery", new Vector3(-0.25f, 0.40f, 0.35f) },
         { "Other", new Vector3(0.0f, 0.35f, -0.15f) }
     };
 
@@ -141,9 +141,13 @@ public class ARSceneController : MonoBehaviour
                     Vector3 direction = hitPose.position - Camera.main.transform.position;
                     direction.y = 0;
                     direction.Normalize();
+
                     Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    spawnedCar = Instantiate(transparentCarPrefab, hitPose.position, lookRotation);
-                    spawnedCar.transform.localScale = Vector3.one;
+                    Quaternion rotated = lookRotation * Quaternion.Euler(0, 180, 0);
+
+                    spawnedCar = Instantiate(transparentCarPrefab, hitPose.position, rotated);
+                    spawnedCar.transform.position += Vector3.up * 0.28f;
+                    spawnedCar.transform.position += spawnedCar.transform.forward * -1.5f;
                 }
 
                 // Spawn the DTC models
