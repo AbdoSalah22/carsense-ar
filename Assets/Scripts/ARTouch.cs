@@ -66,6 +66,12 @@ public class ARTouch : MonoBehaviour
             selectedContainer = null;
         }
 
+        // Restore original materials to the previously highlighted renderers
+        RestorePreviousHighlighted();
+
+        selectedMarker = null;
+        selectedContainer = null;
+
         // Re-enable all marker colliders
         foreach (GameObject marker in GameObject.FindGameObjectsWithTag("DTCMarker"))
         {
