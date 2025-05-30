@@ -456,7 +456,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1752190620}
-  - {fileID: 967876942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -818,81 +817,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1 &967876941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 967876942}
-  - component: {fileID: 967876944}
-  - component: {fileID: 967876943}
-  m_Layer: 5
-  m_Name: GuideFrame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &967876942
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967876941}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 632548812}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 350}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &967876943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967876941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.033018887, g: 1, b: 0.54364383, a: 0.2509804}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &967876944
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967876941}
-  m_CullTransparentMesh: 1
 --- !u!1 &1039503462
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arCameraManager: {fileID: 874708522}
-  guideFramePanel: {fileID: 967876941}
+  guideFramePanel: {fileID: 0}
   defaultPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
   zoneLabelPrefab: {fileID: 250787447564667353, guid: bf98f0e81f2ebac4d94f782ff6411e39, type: 3}
   MotorPrefab: {fileID: 7820645381204436368, guid: 3121dbe8b7690aa4983e59ff85d15bef, type: 3}
@@ -1063,7 +987,7 @@ MonoBehaviour:
   placementPrefab: {fileID: 643184029642582959, guid: 765a16f9e0db1dd4e903423e9f6b0143, type: 3}
   defaultPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
   zoneLabelPrefab: {fileID: 250787447564667353, guid: bf98f0e81f2ebac4d94f782ff6411e39, type: 3}
-  MotorPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
+  EnginePrefab: {fileID: 1910841008752281598, guid: dbcfdea027d23674db8fdd17991b4258, type: 3}
   SteeringPrefab: {fileID: 8466676476451192899, guid: 52bff75a04ac1524e8f4f14cbced5c9e, type: 3}
   ExhaustPrefab: {fileID: 8841117674693389397, guid: 7e1663fd89051434f87885659f64f07f, type: 3}
   BrakesPrefab: {fileID: 4590059107553697785, guid: 4119c17b456121a4aa34f494b1b196f3, type: 3}
@@ -1071,9 +995,8 @@ MonoBehaviour:
   SuspensionPrefab: {fileID: 3700561922331102818, guid: 14c43aa1de4786641818c9009bd09b96, type: 3}
   CoolingPrefab: {fileID: 643184029642582959, guid: e4f21f4dfdfd5144a892f2a24c79290b, type: 3}
   BatteryPrefab: {fileID: 796527897679609166, guid: 287b41ded7943854cb7483ba6a915da1, type: 3}
-  transparentCarPrefab: {fileID: 1654648867817274, guid: 8258fdccd226b584b8dc1c7ac1652db0, type: 3}
+  transparentCarPrefab: {fileID: 1339424909602166, guid: f62b58a28c159a14d98b996d17be96c4, type: 3}
   infoBox: {fileID: 446104802}
-  guideFramePanel: {fileID: 967876941}
   horizontalPlaneMaterial: {fileID: 2100000, guid: 0297da3dc6e45b842ba37a4738b51a69, type: 2}
   verticalPlaneMaterial: {fileID: 2100000, guid: 41968241e678a5b44aea355be3898fb1, type: 2}
 --- !u!1 &1056020808
@@ -1160,8 +1083,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

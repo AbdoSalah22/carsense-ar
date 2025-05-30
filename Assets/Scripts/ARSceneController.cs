@@ -15,7 +15,7 @@ public class ARSceneController : MonoBehaviour
     public GameObject placementPrefab;
     public GameObject defaultPrefab;
     public GameObject zoneLabelPrefab;
-    public GameObject MotorPrefab, SteeringPrefab, ExhaustPrefab, BrakesPrefab, TransmissionPrefab, SuspensionPrefab, CoolingPrefab, BatteryPrefab;
+    public GameObject EnginePrefab, SteeringPrefab, ExhaustPrefab, BrakesPrefab, TransmissionPrefab, SuspensionPrefab, CoolingPrefab, BatteryPrefab;
 
     [Header("Car Model")]
     public GameObject transparentCarPrefab;
@@ -23,7 +23,6 @@ public class ARSceneController : MonoBehaviour
 
     [Header("UI")]
     public TMP_Text infoBox;
-    public GameObject guideFramePanel;
 
     [Header("Plane Materials")]
     public Material horizontalPlaneMaterial;
@@ -35,7 +34,7 @@ public class ARSceneController : MonoBehaviour
 
     private Dictionary<string, Vector3> dtcOffsets = new Dictionary<string, Vector3>()
     {
-        { "Motor", new Vector3(0.1f, 0.35f, 0.4f) },
+        { "Engine", new Vector3(0.1f, 0.35f, 0.4f) },
         { "Steering", new Vector3(0.25f, 0.6f, 1.2f) },
         { "Exhaust", new Vector3(-0.25f, 0.2f, 2.0f) },
         { "Brakes", new Vector3(0.4f, 0.175f, 0.575f) },
@@ -46,7 +45,7 @@ public class ARSceneController : MonoBehaviour
         { "Other", new Vector3(0.0f, 0.35f, -0.15f) }
     };
 
-    private Dictionary<string, List<DTCData>> groupedDTCs = new Dictionary<string, List<DTCData>>();
+    public Dictionary<string, List<DTCData>> groupedDTCs = new Dictionary<string, List<DTCData>>();
 
     void Start()
     {
@@ -161,7 +160,6 @@ public class ARSceneController : MonoBehaviour
 
                 planeManager.enabled = false;
                 infoBox.text = "DTC markers placed!";
-                guideFramePanel.SetActive(false);
                 hasSpawnedParts = true;
             }
         }
@@ -169,8 +167,30 @@ public class ARSceneController : MonoBehaviour
 
     void LoadDTCData()
     {
-        TextAsset jsonText = Resources.Load<TextAsset>("dtcs");
-        DTCData[] dtcs = JsonHelper.FromJson<DTCData>(jsonText.text);
+        string dtcJson = IntentReceiver.ReceivedDtcJson;
+
+        DTCData[] dtcs;
+
+        if (!string.IsNullOrEmpty(dtcJson))
+        {
+            try
+            {
+                dtcs = JsonHelper.FromJson<DTCData>(dtcJson);
+                Debug.Log("Loaded DTCs from intent.");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError("Failed to parse DTCs from intent JSON. Falling back to dtcs.json. Error: " + ex.Message);
+                dtcs = LoadFromResource();
+            }
+        }
+        else
+        {
+            Debug.Log("No intent data found. Using dtcs.json from Resources.");
+            dtcs = LoadFromResource();
+        }
+
+        // Group by zone
         foreach (var dtc in dtcs)
         {
             if (!groupedDTCs.ContainsKey(dtc.zone))
@@ -180,11 +200,19 @@ public class ARSceneController : MonoBehaviour
         }
     }
 
+    DTCData[] LoadFromResource()
+    {
+        TextAsset jsonText = Resources.Load<TextAsset>("dtcs");
+        return JsonHelper.FromJson<DTCData>(jsonText.text);
+    }
+
+
+
     GameObject GetPrefabForZone(string zone)
     {
         switch (zone)
         {
-            case "Motor": return MotorPrefab ?? defaultPrefab;
+            case "Engine": return EnginePrefab ?? defaultPrefab;
             case "Steering": return SteeringPrefab ?? defaultPrefab;
             case "Exhaust": return ExhaustPrefab ?? defaultPrefab;
             case "Brakes": return BrakesPrefab ?? defaultPrefab;
@@ -221,7 +249,7 @@ public class ARSceneController : MonoBehaviour
 
                 var container = dtcObj.AddComponent<DTCContainer>();
                 foreach (var dtc in dtcList)
-                    container.dtcs.Add($"{dtc.code}\n{dtc.description}");
+                    container.dtcs.Add($"{dtc.code}\n{dtc.explanation}");
 
                 GameObject label = Instantiate(zoneLabelPrefab, worldPos + new Vector3(0, 0.1f, 0), Quaternion.identity);
                 label.GetComponent<TextMeshPro>().text = zone;
@@ -280,6 +308,5 @@ public class ARSceneController : MonoBehaviour
 
         hasSpawnedParts = false;
         infoBox.text = "Tap on the highlighted area to start again";
-        guideFramePanel.SetActive(true);
     }
 }

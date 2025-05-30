@@ -123,7 +123,7 @@ public class ARTouchSpawn : MonoBehaviour
                 DTCContainer container = dtcObject.AddComponent<DTCContainer>();
                 foreach (var dtc in dtcList)
                 {
-                    container.dtcs.Add($"{dtc.code} - {dtc.description}");
+                    container.dtcs.Add($"{dtc.code} - {dtc.explanation}");
                 }
 
                 // Create the label

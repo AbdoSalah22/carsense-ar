@@ -73,16 +73,16 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _PulseMax: 1.5
+    - _PulseMax: 2
     - _PulseMinimum: 0.5
-    - _PulseSpeed: 1
+    - _PulseSpeed: 4
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.9304774, b: 0.6273585, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlowColor: {r: 1, g: 0.5, b: 0, a: 1}
+    - _GlowColor: {r: 1, g: 0.5026178, b: 0, a: 1}
   m_BuildTextureStacks: []

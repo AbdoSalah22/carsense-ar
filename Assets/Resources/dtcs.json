@@ -1,15 +1,15 @@
 [
-    { "code": "P0301", "description": "Cylinder 1 Misfire Detected", "zone": "Motor" },
-    { "code": "P0219", "description": "Engine Overspeed Condition", "zone": "Motor" },
-    { "code": "P1326", "description": "Knock Sensor Detection", "zone": "Motor" },
-    { "code": "C1A00", "description": "Steering Angle Sensor Malfunction", "zone": "Steering" },
-    { "code": "P0420", "description": "Catalyst System Efficiency Below Threshold", "zone": "Exhaust" },
-    { "code": "C1234", "description": "ABS Brake Pressure Sensor Fault", "zone": "Brakes" },
-    { "code": "P0700", "description": "Transmission Control System Malfunction", "zone": "Transmission" },
-    { "code": "C1111", "description": "Suspension Height Sensor Fault", "zone": "Suspension" },
-    { "code": "P0117", "description": "Engine Coolant Temperature Sensor Low", "zone": "Cooling" },
-    { "code": "B1000", "description": "Battery Control Module Failure", "zone": "Battery" },
-	{ "code": "X1234", "description": "Fake Part", "zone": "Fake" },
-	{ "code": "O1234", "description": "Other Troubles 1", "zone": "Other" },
-	{ "code": "O5678", "description": "Other Troubles 2", "zone": "Other" }
+    { "code": "P0301", "explanation": "Cylinder 1 Misfire Detected", "zone": "Engine" },
+    { "code": "P0219", "explanation": "Engine Overspeed Condition", "zone": "Engine" },
+    { "code": "P1326", "explanation": "Knock Sensor Detection", "zone": "Engine" },
+    { "code": "C1A00", "explanation": "Steering Angle Sensor Malfunction", "zone": "Steering" },
+    { "code": "P0420", "explanation": "Catalyst System Efficiency Below Threshold", "zone": "Exhaust" },
+    { "code": "C1234", "explanation": "ABS Brake Pressure Sensor Fault", "zone": "Brakes" },
+    { "code": "P0700", "explanation": "Transmission Control System Malfunction", "zone": "Transmission" },
+    { "code": "C1111", "explanation": "Suspension Height Sensor Fault", "zone": "Suspension" },
+    { "code": "P0117", "explanation": "Engine Coolant Temperature Sensor Low", "zone": "Cooling" },
+    { "code": "B1000", "explanation": "Battery Control Module Failure", "zone": "Battery" },
+	{ "code": "X1234", "explanation": "Fake Part", "zone": "Fake" },
+	{ "code": "O1234", "explanation": "Other Troubles 1", "zone": "Other" },
+	{ "code": "O5678", "explanation": "Other Troubles 2", "zone": "Other" }
 ]

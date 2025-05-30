@@ -77,7 +77,7 @@ public class ImageTracker : MonoBehaviour
                     // Add component and data
                     DTCContainer container = dtcSphere.AddComponent<DTCContainer>();
                     foreach (var dtc in dtcList)
-                        container.dtcs.Add($"{dtc.code} - {dtc.description}");
+                        container.dtcs.Add($"{dtc.code} - {dtc.explanation}");
                 }
             }
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class DTCData
 {
     public string code;
-    public string description;
+    public string explanation;
     public string zone;
 }
 

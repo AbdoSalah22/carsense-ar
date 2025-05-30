@@ -6,6 +6,9 @@ public class IntentReceiver : MonoBehaviour
     [Header("UI")]
     public TMP_Text infoBox2;
 
+    public static string ReceivedDtcJson = null;
+
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -28,9 +31,10 @@ public class IntentReceiver : MonoBehaviour
                 if (intent.Call<bool>("hasExtra", "dtc_data"))
                 {
                     string dtcJson = intent.Call<string>("getStringExtra", "dtc_data");
+                    ReceivedDtcJson = dtcJson;
                     infoBox2.text = dtcJson;
                     Debug.Log("Received DTC data: " + dtcJson);
-                    ProcessDtcData(dtcJson);
+                    //ProcessDtcData(dtcJson);
                 }
             }
         }
@@ -41,21 +45,21 @@ public class IntentReceiver : MonoBehaviour
 #endif
     }
 
-    void ProcessDtcData(string jsonData)
-    {
-        // Parse JSON (same as before)
-        DtcData[] dtcList = JsonUtility.FromJson<DtcData[]>(jsonData);
-        foreach (var dtc in dtcList)
-        {
-            Debug.Log($"DTC: {dtc.code}, Severity: {dtc.severity}");
-        }
-    }
+    //void ProcessDtcData(string jsonData)
+    //{
+    //    // Optionally log
+    //    infoBox2.text = "Received DTCs. Parsing...";
 
-    [System.Serializable]
-    public class DtcData
-    {
-        public string code;
-        public string explanation;
-        public string severity;
-    }
+    //    // Try to find the ARSceneController and call the load method
+    //    ARSceneController controller = FindObjectOfType<ARSceneController>();
+    //    if (controller != null)
+    //    {
+    //        controller.LoadDTCDataFromJson(jsonData);
+    //        Debug.Log("DTC data passed to ARSceneController.");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("ARSceneController not found in scene.");
+    //    }
+    //}
 }

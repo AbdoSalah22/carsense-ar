@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48c238975d98a3748901a4a11073e5a9
+guid: 07289a379f4a61742a1e39e93166e748
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,53 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: f1e49e0e85c94cc42bfae5e5c8bdb9eb, type: 2}
+      name: 179,141,1
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: f1e49e0e85c94cc42bfae5e5c8bdb9eb, type: 2}
+      name: 190,188,186
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 190,188,186_1
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 203,154,59
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 244,244,244
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 255,241,177
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 255,251,240
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 255,255,255
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 72,71,61
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base
+    second: {fileID: 2100000, guid: 1659652fd46b85e43b176279a2eea199, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -45,7 +85,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 4
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -100,7 +140,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 4
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
